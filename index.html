@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <title>Cooking Simulator</title>
+       <link rel = "stylesheet" href = "style.css">
+   </head>
+   <body>
+        <div id = "game-viewpoint">
+            <header>
+                <div class = "container" id = "header-container">
+                    <p id = "cash-count">£200<br>£0/s</p>
+                    <div id = "level-background">
+                        <div id = "level-number">Level 1</div>
+                        <div id = "level-progress"></div>
+                    </div>
+                </div>
+            </header>
+            <br>
+            <div id = "error"></div>
+            <div id = "counter-display">
+                <div id = "drink-machine">
+                    <div id = "drink-machine-top">
+                        <button  id = "pour-drink-button">Pour</button>
+                    </div>
+                    <div id = "drink-nozzle"></div>
+                    <div id = "drink-machine-middle">
+                        <div id = "cup-container">
+                        <div id = "drink-cup-top"></div>
+                        <img id = "drink-glass" src = "Images/cold-cup.png">
+                            <div id = "drink-liquid"></div>
+                        </div>
+                    <div id = "drink-machine-base"></div>
+                </div></div>
+                <div id = "cash-register">
+                    <div id = "register-screen">
+                        <p>Total: £0</p>
+                    </div>
+                    <div id = "register-pole"></div>
+                    <div id ="register-base">
+                        <div id = "left-register-base">
+                            <button>1</button>
+                            <button>2</button>
+                            <button>3</button>
+                            <button>4</button>
+                            <button>5</button>
+                            <button>6</button>
+                            <button>7</button>
+                            <button>8</button>
+                            <button>9</button>
+                            <button id = "decimal-point">.</button>
+                            <button id = "zero">0</button>
+                        </div>
+                        <div id = "right-register-base">
+                            <button>Food</button><br>
+                            <button>Drinks</button><br>
+                            <button>Desserts</button>
+                        </div></div>
+                        <div id = "register-draw"><button id = "register-draw-handle"></button></div></div>
+                    <div id = "main-counter"><br>
+                            <nav>
+                                <button id = "generate-order-btn">Generate Order</button>
+                                <button id = "staff-button">Staff</button>
+                                <button id = "boosts-button">Boosts</button>
+                                <button id = "food-button">Food</button>
+                                <button id = "drinks-button">Drinks</button>
+                                <button id = "desserts-button">Desserts</button>
+                            </nav></div></div>
+
+
+                <div id = "staff-menu">
+                    <h1>Staff</h1>
+                    <button id = "manager-button">Manager</button>
+                    <button id = "barista-staff-button">Barista's</button>
+                    <button id = "chef-staff-button">Chef's</button>
+                    <button id = "dessert-staff-button">Dessert Specialists</button><br><br>
+                    <div id = "manager-menu">
+                        <button id = "wall-colour-button">Change Wall Colour</button><br><br>
+                        <button id = "unlock-food-menu">Unlock English Food Menu<hr>£200</button><br><br>
+                        <button id = "unlock-drinks-menu">Unlock Drinks Menu<hr>£400</button><br><br>
+                        <button id = "unlock-desserts">Unlock Desserts Menu<hr>£700</button>
+                    </div>
+                    <div id = "barista-menu">
+                        <button id = "barista1-button">Hire Barista 1<hr>£400</button><br><br>
+                        <button id = "barista2-button">Hire Barista 2<hr>£1000</button><br><br>
+                        <button id = "barista3-button">Hire Barista 3<hr>£1500</button><br><br>
+                        <button id = "barista4-button">Hire Barista 4<hr>£2000</button><br><br>
+                        <button id = "barista5-button">Hire Barista 5<hr>3000</button>
+                    </div>
+                    <div id = "chef-menu">
+                        <button id = "chef1-button">Hire Chef 1<hr>£400</button><br><br>
+                        <button id = "chef2-button">Hire Chef 2<hr>£1000</button><br><br>
+                        <button id = "chef3-button">Hire Chef 3<hr>£1500</button><br><br>
+                        <button id = "chef4-button">Hire Chef 4<hr>£2000</button><br><br>
+                        <button id = "chef5-button">Hire Chef 5<hr>3000</button>
+                    </div>
+                    <div id = "dessert-specialist-menu">
+                        <button id = "desertstaff1-button">Hire Desert Staff 1<hr>£400</button><br><br>
+                        <button id = "desertstaff2-button">Hire Desert Staff 2<hr>£1000</button><br><br>
+                        <button id = "desertstaff3-button">Hire Desert Staff 3<hr>£1500</button><br><br>
+                        <button id = "desertstaff4-button">Hire Desert Staff 4<hr>£2000</button><br><br>
+                        <button id = "desertstaff5-button">Hire Desert Staff 5<hr>3000</button>
+                    </div></div>
+
+
+                <div id = "boosts-menu">
+                    <h1>Boosts</h1>
+                    <div id = "boost1">
+                        <div id = "boost-level1">1</div>
+                        <button id = "boost-button1">Increase Food Cost<hr>£50</button></div><br>
+                    <div id = "boost2">
+                        <div id = "boost-level2">1</div>
+                        <button id = "boost-button2">Increase Drinks Cost<hr>£80</button></div><br>
+                    <div id = "boost3">
+                        <div id = "boost-level3">1</div>
+                        <button id = "boost-button3">Increase Dessert Cost<hr>£100</button></div><br>
+                    <div id = "boost4">
+                        <div id = "boost-level4">1</div>
+                        <button id = "boost-button4">Increase Staff Speed<hr>£200</button></div><br><br>
+                    </div>
+
+
+                <div id = "food-menu">
+                    <h1>Food</h1>
+                    <button id = "italian-food-button">Italian</button>
+                    <button id = "english-food-button">English</button><br><br>
+                    <div id = "italian-food-menu">
+                        <button id = "pizza-button">Pizza<hr>£10</button><br><br>
+                        <button id = "pasta-button">Pasta<hr>£20</button>
+                    </div>
+                    <div id = "english-food-menu">
+                        <button id = "fish-and-chips-button">Fish and chips<hr>£15</button><br><br>
+                        <button id = "full-english-button">English breakfast<hr>£20</button>
+                    </div></div>
+
+                <div id = "drink-menu">
+                    <h1>Drinks</h1>
+                    <button id = "cold-drinks-button">Cold Drinks</button>
+                    <button id = "hot-drinks-button">Hot Drinks</button><br><br>
+                    <div id = "cold-drinks-menu">
+                        <button id = "water-button">Water<hr>£0</button><br><br>
+                        <button id = "coke-button">Coke<hr>£0.50</button><br><br>
+                        <button id = "fanta-button">Fanta<hr>£0.50</button><br><br>
+                        <button id = "dr-pepper-button">Dr Pepper<hr>£1</button>
+                    </div>
+                    <div id = "hot-drinks-menu">
+                        <button id = "tea-button">Tea<hr>£2</button><br><br>
+                        <button id = "coffee-button">Coffee<hr>£2.50</button><br><br>
+                        <button id = "hot-chocolate-button">Hot Chocolate<hr>£3.00</button><br><br>
+                    </div></div>
+                
+                <div id = "desserts-menu">
+                    <h1>Desserts</h1>
+                    <button id = "cold-desserts-button">Cold Desserts</button>
+                    <button id = "hot-desserts-button">Hot Desserts</button><br><br>
+                    <div id = "cold-desserts-menu">
+                        <button id = "ice-cream-button">Ice Cream<hr>£2</button><br><br>
+                        <button id = "cheesecake-button">Cheesecake<hr>£10</button><br><br>
+                    </div>
+                    <div id = "hot-desserts-menu">
+                        <button id = "chocolate-brownie-button">Chocolate Brownie<hr>£5</button><br><br>
+                        <button id = "apple-pie-button">Apple Pie<hr>£6</button><br><br>
+                    </div>
+                </div>
+        </div>
+   </body>
+   <script src = "script.js"></script>
+</html>

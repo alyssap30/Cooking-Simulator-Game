@@ -1,0 +1,417 @@
+body {
+   text-align: center;
+   margin: 0;
+   background-color: black;
+   padding: 0;
+   align-items: center;
+   font-family: Arial, sans-serif;
+   justify-content: center;
+   overflow: hidden;
+}
+
+#game-viewpoint {
+   position: relative;
+   max-width: 800px;
+   height: 95vh;
+   box-shadow: 0 0 50px rgba(0,0,0,0.5);;
+   background-color: rgb(250, 200, 208);
+   margin: 0 auto;
+   aspect-ratio: 9/16;
+   border-radius: 2%;
+   display: flex;
+   flex-direction: column;
+   overflow-y: auto;
+   overflow-x: hidden;
+}
+
+#header-container {
+   display: flex;
+   background-color: rgba(255, 255, 255, 0.152);
+   justify-content: space-between;
+   align-items: center;
+   width: 100%;
+   height: 90%;
+   margin: 0 auto;
+   padding: 0 5%;
+   top: 0;
+   position: relative;
+}
+
+#cash-count {
+   border-radius: 10px;
+   background-color: rgba(214, 19, 152, 0.6);
+   border: none;
+   box-shadow: 4px 4px 2px rgba(249, 3, 171, 0.6);
+   width: 30%;
+   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   height: 70px;
+   font-size: 24px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+#counter-display{
+   height: 70%;
+   width: 100%;
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: flex-start;
+   border-radius: 10px;
+   gap: 0;
+   bottom: 0;
+   z-index: 10;
+}
+/* Drink Machine styles */
+
+#drink-machine {
+   background-color: silver;
+   display: none;
+   width: 50%;
+   height: 270px;
+   border-radius: 10px;
+   border: 3px solid gray;
+   position: absolute;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+   bottom: 40%;
+}
+
+#drink-machine-top {
+   background-color: red;
+   width: 100%;
+   height: 60px;
+   border-radius: 5px;
+   align-content: center;
+   justify-content: center;
+   font-weight: bold;
+   color: darkblue;
+   position: relative;
+   z-index: 2;
+}
+
+
+#drink-machine-top button {
+   width: 85%;
+   height: 70%;
+   border-radius: 15px;
+   font-size: large;
+   cursor: pointer;
+   background-color: rgb(246, 76, 46);
+   color: white;
+   border: 2px solid orange;
+}
+#drink-nozzle {
+   background-color: black;
+   width: 5%;
+   height: 20px;
+   position: absolute;
+   top: 60px;
+   border-bottom-left-radius: 5px;
+   border-bottom-right-radius: 5px;
+   left: 50%;
+   transform: translateX(-50%);
+}
+
+#drink-machine-middle {
+   height: 58%;
+   display: flex;
+
+}
+
+#cup-container {
+   justify-content: center;
+   height: 40%;
+   width: 30%;
+   bottom: 19%;
+   left: 50%;
+   transform: translateX(-50%);
+   -webkit-mask-image: url('Images/cold-cup.png');
+   mask-image: url('Images/cold-cup.png');
+   -webkit-mask-size: 100% 100%;
+   mask-size: 100% 100%;
+   overflow: hidden;
+   display: flex;
+   position: absolute;
+   border-radius: 10px;
+}
+#drink-glass {
+   width: 100%;
+   height: 100%;
+   top: 0;
+   left: 0;
+   position: absolute;
+}
+
+#drink-cup-top {
+   background-color: black;
+}
+#drink-liquid {
+   width: 88%;
+   border-radius: 0 0 20px 20px;
+   height: 1%;
+   opacity: 0.8;
+   z-index: 1;
+   border-radius: 0 0 44% 44%;
+   position: absolute;
+   bottom: 12%;
+}
+#drink-machine-base {
+   background-color: darkgray;
+   width: 100%;
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   height: 20%;
+   border-radius: 0 0 10px 10px;
+}
+
+/* Cash Register Styles */
+#cash-register {
+   width: 100%;
+   height: 60%;
+   display: flex;
+   bottom: 40%;
+   position: absolute;
+   flex-direction: column;
+   align-items: center;
+   justify-content: space-around;
+}
+#register-screen {
+   background-color: black;
+   width: 50%;
+   height: 30%;
+   border-radius: 8px;
+   color: lime;
+   border: 4px solid gray;
+   text-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 0;
+}
+#register-pole {
+   background-color: rgb(153, 152, 152);
+   width: 3%;
+   height: 10%;
+   margin: 0;
+}
+#register-base {
+   background-color: white;
+   width: 60%;
+   height: 40%;
+   border-radius: 8px;
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-around;
+   padding: 0 3%;
+   column-gap: 2%;
+   margin: 0;
+}
+#left-register-base {
+   background-color: lightgray;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 5px;
+   width: 46%;
+   height: 90%;
+   border-radius: 8px;
+   padding: 1%;
+}
+#left-register-base button {
+   background-color: lavender;
+   border: white;
+   color: rgb(105, 105, 105);
+   border-radius: 8px;
+   cursor: pointer;
+}
+
+#zero {
+   grid-column: span 2;
+}
+
+#register-draw {
+   background-color: rgb(169, 169, 169);
+   width: 67%;
+   align-content: center;
+   height: 20%;
+   border-radius: 8px;
+   margin: 0;
+}
+#register-draw button {
+   background-color: lavender;
+   border: white;
+   color: rgb(105, 105, 105);
+   border-radius: 8px;
+   width: 60%;
+   height: 10%;
+   text-align: center;
+   cursor: pointer;
+}
+
+#right-register-base {
+   background-color: lightgray;
+   width: 46%;
+   height: 80%;
+   border-radius: 8px;
+   padding: 2%;
+}
+#right-register-base button {
+   background-color: lavender;
+   border: white;
+   color: rgb(105, 105, 105);
+   border-radius: 8px;
+   margin: 2px;
+   width: 90%;
+   height: 30%;
+   text-align: center;
+   cursor: pointer;
+}
+
+
+#main-counter {
+   background-color: gray;
+   width: 100%;
+   height: 40%;
+   text-align: center;
+   position: absolute;
+   align-content: center;
+   bottom: 0;
+}
+
+
+nav {
+   display: grid;
+   grid-template-columns: repeat(5, 1fr);
+   width: 98%;
+   height: 50%;
+   margin: 0 auto;
+   flex-wrap: wrap;
+   flex-direction: row;
+   justify-content: center;
+   gap: 5px;
+   border-radius: 5%;
+}
+
+nav button {
+   font-size: 20px;
+   background-color: white;
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+   align-content: center;
+   border-radius: 7%;
+   cursor: pointer;
+}
+nav button:hover {
+   background-color: lightgray;
+}
+
+#generate-order-btn {
+   grid-column: span 5;
+
+}
+
+
+#level-background {
+   width: 35%;
+   background-color: white;
+   height: 35%;
+   display: flex;
+   margin-right: 10%;
+   justify-content: center;
+   justify-self: center;
+   border-radius: 8px;
+   align-items: center;
+   text-align: center;
+   font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#level-progress {
+   justify-self: start;
+   left: -45%;
+   background-color: rgb(83, 83, 188);
+   position: relative;
+   width: 10%;
+   height: 70%;
+   align-self: center;
+   border-radius: 0 0 5px 0;
+}
+
+#level-number {
+   width: 32%;
+   height: 20%;
+   top: 19%;
+   justify-self: center;
+   background-color: rgb(255, 255, 255, 0.8);
+   border-radius: 8px 8px 0 0;
+   z-index: 5;
+   position: absolute;
+   text-align: center;
+}
+
+
+#boost1, #boost2, #boost3, #boost4, #boost5 {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+}
+
+
+#boost-level1, #boost-level2, #boost-level3, #boost-level4 {
+   background-color: rgb(60, 79, 143);
+   box-shadow: 0 5px 2px rgba(3, 38, 153, 0.5);
+   width: 15%;
+   height: 15%;
+   margin: 2%;
+   align-self: center;
+   border-radius: 50%;
+   text-align: center;
+   align-content: center;
+   font-size: 20px;
+   padding: 3% 0;
+   color: white;
+}
+#food-menu, #drink-menu, #staff-menu, #desserts-menu, #boosts-menu {
+   background-color: white;
+   width: 80%;
+   padding-bottom: 2%;
+   justify-self: center;
+   align-self: center;
+   border-radius: 8px;
+   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+   align-self: center;
+   justify-self: center;
+   position: absolute;
+   display: none;
+   z-index: 1000;
+   top: 10%;
+}
+#staff-menu button, #food-menu button, #drink-menu button, #desserts-menu button, #boosts-menu button {
+   margin-bottom: 1%;
+   font-size: 15px;
+   padding: 5px 15px;
+   border-radius: 6px;
+   cursor: pointer;
+}
+#staff-menu button:hover, #food-menu button:hover, #drink-menu button:hover, #desserts-menu button:hover, #boosts-menu button:hover {
+   background-color: lightgray;
+
+}
+
+
+
+#english-food-menu, #hot-drinks-menu, #barista-menu, #chef-menu, #dessert-specialist-menu, #hot-desserts-menu {
+   display: none;
+}
+#italian-food-menu button, #english-food-menu button, #cold-drinks-menu button, #hot-drinks-menu button, #barista-menu button, #chef-menu button, #dessert-specialist-menu button, #manager-menu button, #cold-desserts-menu button, #hot-desserts-menu button {
+   width: 85%;
+   border-radius: 6px;
+   cursor: pointer;
+   font-size: 15px}
+
+
+#italian-food-button, #cold-drinks-button, #manager-button, #cold-desserts-button {
+   border-bottom: red 2px solid;}
