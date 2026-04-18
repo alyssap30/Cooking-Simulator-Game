@@ -24,13 +24,15 @@ const FoodButtons = [document.getElementById("italian-food-button"), document.ge
 
 // Drink Tab Variables
 const drinkTab = document.getElementById("drink-menu");
-const drinksLiquid = document.getElementById("drink-liquid");
+const drinksLiquidCold = document.getElementById("drink-liquid-cold");
+const drinksLiquidHot = document.getElementById("drink-liquid-hot")
 const coldDrinks = document.getElementById("cold-drinks-menu");
 const coldCup = document.getElementById("drink-glass");
 const hotDrinks = document.getElementById("hot-drinks-menu");
-const hotCup = document.getElementById("drink-cup-top");
+const hotCup = document.getElementById("drink-cup");
 const drinkMenuSelection = [coldDrinks, hotDrinks];
 const drinkButtons = [document.getElementById("cold-drinks-button"), document.getElementById("hot-drinks-button")];
+let drinkAccuracy = 0;
 
 // Desert Tab Variables
 const dessertsTab = document.getElementById("desserts-menu");
@@ -55,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function(){
    BaristaMenu.style.display = "none";
    ChefMenu.style.display = "none";
    DessertSpecialistMenu.style.display = "none";
-   EnglishFood.style.display = "none";
+   englishFood.style.display = "none";
    hotDrinks.style.display = "none";
    drinkMachine.style.display = "none"
 });
@@ -118,9 +120,15 @@ class Money_Spending {
          console.log(`New total: ${moneyCount}`)
          cashStorage.innerHTML = `£${moneyCount}<br>£${moneyPerSecond}/s`;
          xp += this.xpPerClick;
+         let levelPercentageComplete = (xp / requireXpToLevelUp) * 100;
+         document.getElementById("level-progress").style.width = levelPercentageComplete + "%";
          if (xp >= requireXpToLevelUp) {
             level += 1;
-            xp = xp - requireXpToLevelUp;}
+            document.getElementById("level-number").textContent = `Level ${level}`
+            xp = xp - requireXpToLevelUp;
+            levelPercentageComplete = (xp / requireXpToLevelUp) * 100
+            document.getElementById("level-progress").style.height = levelPercentageComplete + "%"
+         }
             if (buttonDisappears === true) {
                this.buttonID.style.display = "none"}
                return true;}
@@ -134,9 +142,7 @@ class Food extends Money_Spending {
    constructor(itemName, itemPrice, buttonID) {
        super(itemName, itemPrice, buttonID);
    }
-   Display_foodCounter() {
-      pass 
-   }};
+   Display_foodCounter() {}};
 
  // Food Menu Navigation
 document.getElementById("italian-food-button").onclick = function() {
@@ -161,32 +167,42 @@ const fullEnglish = new Food("Full English Breakfast", 20, document.getElementBy
 const englishItems = {"fish-and-chips-button": fishAndChips, "full-english-button": fullEnglish}
 
 englishFood.addEventListener('click', function(event) {
-   const clickedButton = event.target
-   let id = clickedButton.id
-   englishItems[id].Buying_Item()
+   const id = event.target.id
+   let item = italianItems[id]
+   if (item){item.Buying_Item()}
 });
 
 // Drink Machine Functions
 class Drinks extends Money_Spending {
    constructor(itemName, itemPrice, buttonID, drinkColor, cupType) {
-       super(itemName, itemPrice, buttonID);
-       this.drinkColor = drinkColor;
-       this.cupType = cupType;
-       this.percentageFull = 0
+      super(itemName, itemPrice, buttonID);
+      this.drinkColor = drinkColor;
+      this.cupType = cupType;
+      this.drinkLiquid = null;
+      this.percentageFull = 5;
    }
    Drink_Machine() {
       cashRegister.style.display = "none";
       drinkMachine.style.display = "flex";
       drinkTab.style.display  = "none";
-      drinksLiquid.style.backgroundColor = this.drinkColor
-      this.percentageFull = 0;
-      drinksLiquid.style.height = this.percentageFull + "%";
+      if (this.cupType === "hotCup") {
+         this.drinkLiquid = drinksLiquidHot
+      }
+      else {
+         this.drinkLiquid = drinksLiquidCold
+      }
+      this.drinkLiquid.style.backgroundColor = this.drinkColor
+      this.drinkLiquid.style.height = this.percentageFull + "%";
       if (this.cupType === "hotCup") {
          hotCup.style.display = "block";
          coldCup.style.display = "none";
          document.getElementById("drink-machine-top").style.backgroundColor = "black";
          document.getElementById("pour-drink-button").style.backgroundColor = "white";
-         document.getElementById("pour-drink-button").style.color = "black"}
+         document.getElementById("pour-drink-button").style.color = "black";
+         document.getElementById("done-drink-button").style.backgroundColor = "white";
+         document.getElementById("done-drink-button").style.color = "black";
+         document.getElementById("drink-nozzle").style.backgroundColor = "grey"
+      }
       else {
          coldCup.style.display = "block";
          hotCup.style.display = "none";
@@ -197,15 +213,20 @@ class Drinks extends Money_Spending {
 
    Pouring_drink() {
       if (this.percentageFull < 75) {
-            this.percentageFull += 5;
-            drinksLiquid.style.height = this.percentageFull + "%";
-            document.getElementById("pour-drink-button").textContent = "Pour";
-        } 
-        if (this.percentageFull >= 100) {
-            document.getElementById("pour-drink-button").textContent = "Start again";
-         }
+         this.percentageFull += 5;
+         this.drinkLiquid.style.height = this.percentageFull + "%";
+         document.getElementById("pour-drink-button").textContent = "Pour";
+      } 
+      else if (this.percentageFull === 75) {
+         this.document.getElementById("pour-drink-button").textContent = "Start again";}
       }
-   }
+   Done_Pouring_Drink() {
+      drinkAccuracy = (this.percentageFull / 75) * 100;
+      cashRegister.style.display = "flex";
+      drinkMachine.style.display = "none";
+      this.percentageFull = 0;
+      this.drinkLiquid.style.height = this.percentageFull + "%";
+   }}
 
 // Drinks Menu Navigation 
 document.getElementById("cold-drinks-button").onclick = function() {
@@ -218,10 +239,13 @@ let activeDrink;
 document.getElementById("pour-drink-button").onclick = function() {
    activeDrink.Pouring_drink()};
 
+document.getElementById("done-drink-button").onclick = function() {
+   activeDrink.Done_Pouring_Drink()};
+
 // Cold Drinks Selection
-const Coke = new Drinks("Coke", 0.5, document.getElementById("coke-button"), "brown", "coldCup");
+const Coke = new Drinks("Coke", 0.5, document.getElementById("coke-button"), "rgb(94, 48, 0)", "coldCup");
 const Fanta = new Drinks("Fanta", 0.5, document.getElementById("fanta-button"), "orange", "coldCup");
-const drPepper = new Drinks("Dr Pepper", 1, document.getElementById("dr-pepper-button"), "brown", "coldCup");
+const drPepper = new Drinks("Dr Pepper", 1, document.getElementById("dr-pepper-button"), "rgb(72, 43, 11)", "coldCup");
 const Water = new Drinks("Water", 0, document.getElementById("water-button"), "lightblue", "coldCup");
 const coldDrinkItems = {"coke-button": Coke, "fanta-button": Fanta, "dr-pepper-button": drPepper, "water-button": Water};
 
@@ -234,7 +258,7 @@ coldDrinks.addEventListener('click', function(event) {
 }});
 
 // Hot Drinks Selection
-const Tea = new Drinks("Tea", 2, document.getElementById("tea-button"), "orange", "hotCup");
+const Tea = new Drinks("Tea", 2, document.getElementById("tea-button"), "rgb(133, 94, 26)", "hotCup");
 const Coffee = new Drinks("Coffee", 2.5, document.getElementById("coffee-button"), "#8B4513", "hotCup");
 const hotChocolate = new Drinks("Hot Chocolate", 3, document.getElementById("hot-chocolate-button"), "brown", "hotCup");
 const hotDrinkItems = {"tea-button": Tea, "coffee-button": Coffee, "hot-chocolate-button": hotChocolate}
@@ -252,9 +276,7 @@ class Dessert extends Money_Spending {
    constructor(itemName, itemPrice, buttonID) {
        super(itemName, itemPrice, buttonID);
    }
-   Display_dessertMachine() {
-      pass
-   }};
+   Display_dessertMachine() {}};
 
 // Desserts Menu Navigation
 document.getElementById("cold-desserts-button").onclick = function() {
