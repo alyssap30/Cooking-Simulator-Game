@@ -21,17 +21,19 @@ const italianFood = document.getElementById("italian-food-menu");
 const englishFood = document.getElementById("english-food-menu");
 const FoodMenuSelection = [italianFood, englishFood];
 const FoodButtons = [document.getElementById("italian-food-button"), document.getElementById("english-food-button")];
+const allFoods = ["Pizza", "Pasta", "Fish and Chips", "Full English Breakfast"];
 
 // Drink Tab Variables
 const drinkTab = document.getElementById("drink-menu");
-const drinksLiquidCold = document.getElementById("drink-liquid-cold");
-const drinksLiquidHot = document.getElementById("drink-liquid-hot")
 const coldDrinks = document.getElementById("cold-drinks-menu");
-const coldCup = document.getElementById("drink-glass");
 const hotDrinks = document.getElementById("hot-drinks-menu");
-const hotCup = document.getElementById("drink-cup");
 const drinkMenuSelection = [coldDrinks, hotDrinks];
 const drinkButtons = [document.getElementById("cold-drinks-button"), document.getElementById("hot-drinks-button")];
+const allDrinks = ["Water", "Coke", "Fanta", "Dr Pepper", "Tea", "Coffee", "Hot Chocolate"];
+const drinksLiquidCold = document.getElementById("drink-liquid-cold");
+const drinksLiquidHot = document.getElementById("drink-liquid-hot")
+const coldCup = document.getElementById("drink-glass");
+const hotCup = document.getElementById("drink-cup");
 let drinkAccuracy = 0;
 
 // Desert Tab Variables
@@ -40,15 +42,25 @@ const coldDesserts = document.getElementById("cold-desserts-menu");
 const hotDesserts = document.getElementById("hot-desserts-menu");
 const dessertsMenuSelection = [coldDesserts, hotDesserts];
 const dessertsButtons = [document.getElementById("cold-desserts-button"), document.getElementById("hot-desserts-button")];
+const allDesserts = ["Ice cream", "Cheesecake", "Chocolate Brownie", "Apple Pie"]
+
+// Order Menu Variables 
+const orderTab = document.getElementById("order-menu")
+let randomFood;
+let randomDessert;
+let randomDrink;
+let generatedOrder = false;
 
 // Variables used throughout the program
 const cashStorage = document.getElementById("cash-count");
 let moneyCount = 200;
 let moneyPerSecond = 0;
 let level = 1;
+let moneyMultiplier = 0.1;
 let xp = 0;
 let requireXpToLevelUp = 50;
-const navigationMenu = [StaffTab, BoostsTab, FoodTab, drinkTab, dessertsTab]
+const navigationMenu = [StaffTab, BoostsTab, FoodTab, drinkTab, dessertsTab, orderTab]
+let cart = [];
 
 // Saves on Refresh
 document.addEventListener('DOMContentLoaded', function(){
@@ -112,6 +124,7 @@ class Money_Spending {
        this.itemName = itemName
        this.itemPrice = itemPrice
        this.xpPerClick = itemPrice / 5
+       this.moneyEarnt = itemPrice * moneyMultiplier
        this.buttonID =  buttonID
    }
    Buying_Item(buttonDisappears = false) {
@@ -220,12 +233,15 @@ class Drinks extends Money_Spending {
       else if (this.percentageFull === 75) {
          this.document.getElementById("pour-drink-button").textContent = "Start again";}
       }
+
    Done_Pouring_Drink() {
       drinkAccuracy = (this.percentageFull / 75) * 100;
       cashRegister.style.display = "flex";
       drinkMachine.style.display = "none";
       this.percentageFull = 0;
       this.drinkLiquid.style.height = this.percentageFull + "%";
+      cart.push(this.itemName);
+      console.log(cart);
    }}
 
 // Drinks Menu Navigation 
@@ -305,3 +321,39 @@ hotDesserts.addEventListener('click', function(event) {
    let id = clickedButton.id
    hotDessertItems[id].Buying_Item()
 });
+
+// Order Generation Functions
+
+document.getElementById("generate-order-btn").onclick = function() {
+   Open_menu(orderTab)
+   if (generatedOrder === false) {
+      generatedOrder = true;
+      randomFood = allFoods[Math.floor(Math.random() * allFoods.length)];
+      document.getElementById("random-food-display").textContent = `Food: ${randomFood}`;
+      randomDrink = allDrinks[Math.floor(Math.random() * allDrinks.length)];
+      document.getElementById("random-drink-display").textContent = `Drink: ${randomDrink}`;
+      randomDessert = allDesserts[Math.floor(Math.random() * allDesserts.length)];
+      document.getElementById("random-dessert-display").textContent = `Dessert: ${randomDessert}`;
+   }
+}
+document.getElementById("close-order-btn").onclick = function() {
+   orderTab.style.display = "none"
+}
+
+document.getElementById("submit-order-btn").onclick = function() {
+   if (cart.includes(randomFood)) {
+      document.getElementById("random-food-display").style.color = "green"
+   }  
+   if (cart.includes(randomDrink)) {
+      document.getElementById("random-drink-display").style.color = "green"
+   }
+   if (cart.includes(randomDessert)) {
+      document.getElementById("random-dessert-display").style.color = "green"
+   }
+   if (cart.includes(randomFood, randomDrink, randomFood)) {
+      console.log("Order Complete");
+      cart = []
+      generatedOrder = false
+      moneyCount = (randomDrink.moneyEarnt * drinkAccuracy)
+   }
+}
